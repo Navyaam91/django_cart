@@ -1,6 +1,6 @@
 from django.db import models
-from .models import Customer, Product
-
+from products.models import Product
+from customers.models import Customer
 class Order(models.Model):
 
     ORDER_STATUS_CHOICES = [

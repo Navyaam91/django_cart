@@ -11,7 +11,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='media/products/', blank=True, null=True)
     stock = models.PositiveIntegerField(default=0)
     priority=models.PositiveIntegerField(default=0)
-    deleted_at=models.IntegerField(choice=DELETE_CHOICEs)
+    deleted_at=models.IntegerField(choices=DELETE_CHOICE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
