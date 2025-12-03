@@ -18,7 +18,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Order of {self.owner.name if self.owner else 'Unknown'}"
+        return f"Order of {self.owner.firstname if self.owner else 'Unknown'}"
 
     @property
     def total_price(self):
@@ -33,6 +33,9 @@ class OrderItem(models.Model):
     delete_status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    @property
+    def total(self):
+        return self.quantity * self.product.price
 
     def __str__(self):
         return f"{self.product.name} (x{self.quantity})"
