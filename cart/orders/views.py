@@ -83,3 +83,12 @@ def checkout(request):
     return redirect("order_success")   # redirect to success page
 def order_success(request):
     return render(request,'success.html')
+@login_required
+def orders(request):
+    user=request.user
+    customer=user.customer
+    
+    all_orders=Order.objects.filter(owner=customer).exclude(order_status=0)
+    # print(all_orders)
+    context={'orders':all_orders}
+    return render(request,'order.html',context)
