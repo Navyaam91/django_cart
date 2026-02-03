@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login,logout as auth_logout
 from django.contrib import messages
-from . models import Customer
+from . models import Customer,Contact
+
 def signup(request):
     if request.method == "POST":
         country = request.POST.get("c_country")
@@ -67,3 +68,23 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('home')
+def about(request):
+    return render(request, 'about.html')
+def contactus(request):
+    if request.method == "POST":
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        Contact.objects.create(
+            first_name=fname,
+            last_name=lname,
+            email=email,
+            message=message
+        )
+
+        messages.success(request, "Message sent successfully!")
+        return redirect('contactus')
+
+    return render(request, 'contact.html')
