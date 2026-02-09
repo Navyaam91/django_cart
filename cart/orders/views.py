@@ -2,9 +2,15 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from products.models import Product
 from .models import Order, OrderItem
+from django.contrib import messages
 
-@login_required
+
+# @login_required
 def add_to_cart(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Please login to add items to cart")
+        return redirect('login')
+
     if request.method == "POST":
         # print("ADD TO CART VIEW HIT")
         # print("POST DATA:", request.POST)
@@ -85,6 +91,7 @@ def order_success(request):
     return render(request,'success.html')
 @login_required
 def orders(request):
+    
     user=request.user
     customer=user.customer
     
