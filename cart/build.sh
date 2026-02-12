@@ -15,3 +15,4 @@ python manage.py migrate --noinput
 echo "=== Creating Superuser ==="
 python create_admin.py
 echo "=== Build complete ==="
+
